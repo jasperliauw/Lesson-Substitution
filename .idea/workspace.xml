@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="457d5578-d660-4740-a9d1-9c1a30fdd493" name="Changes" comment="test if program working or not">
+    <list default="true" id="457d5578-d660-4740-a9d1-9c1a30fdd493" name="Changes" comment="Created filelocation and check if the file exists or not">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -74,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743997243794</updated>
       <workItem from="1743997245148" duration="1548000" />
-      <workItem from="1743999346789" duration="5397000" />
+      <workItem from="1743999346789" duration="7710000" />
     </task>
     <task id="LOCAL-00001" summary="created main.py">
       <option name="closed" value="true" />
@@ -100,7 +100,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743997869968</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Created filelocation and check if the file exists or not">
+      <option name="closed" value="true" />
+      <created>1744022129507</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744022129507</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,9 +128,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created main.py" />
     <MESSAGE value="test if program working or not" />
-    <option name="LAST_COMMIT_MESSAGE" value="test if program working or not" />
+    <MESSAGE value="Created filelocation and check if the file exists or not" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created filelocation and check if the file exists or not" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/LessonSubstitution$main.coverage" NAME="main Coverage Results" MODIFIED="1744021808770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LessonSubstitution$main.coverage" NAME="main Coverage Results" MODIFIED="1744024602590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

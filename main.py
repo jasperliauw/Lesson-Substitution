@@ -39,3 +39,7 @@ while not fileSelected:
 
 
 
+
+file = open(fileName, mode='r')
+fileLines = file.read()
+print(fileLines)
