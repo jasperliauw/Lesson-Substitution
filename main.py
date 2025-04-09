@@ -7,7 +7,13 @@ import os
 #Global Variables
 
 fileSelected = False
-fileName = ""
+fileNameSC = ""
+schoolCode = []
+lessonVar = []
+lessonDays = 0
+lessonAmount = 0
+
+
 
 #######################
 
@@ -26,20 +32,13 @@ def checkFileExistence(fileName):
 
 
 while not fileSelected:
-    fileLocation = input("If the file is in the same folder as the program, please input (1)\nIf the file is not in the same folder as the program, please input (2)\n")
-    if fileLocation == "1":
-        fileName = input("Please input the name of the file: ")
-        fileSelected = checkFileExistence(fileName)
-    elif fileLocation == "2":
-        fileName = input("Please input the FULL DIRECTORY of the file: ")
-        fileSelected = checkFileExistence(fileName)
-
-    else:
-        print("Invalid option, please try again")
+    fileNameSC = input("Please enter the full directory of SC.txt\n")
+    if checkFileExistence(fileNameSC):
+        fileSelected = True
 
 
 
-
-file = open(fileName, mode='r')
+file = open(fileNameSC, mode='r')
 fileLines = file.read()
-print(fileLines)
+lines = fileLines.splitlines()
+splitData = [line.split(';') for line in lines]
