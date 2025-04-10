@@ -32,8 +32,18 @@ def checkFileExistence(fileName):
 
 
 
-def checkTimetableValidity():
-    print(fileNameTimetable)
+def openTimetable():
+    foundTimetable = False
+    global fileNameTimetable
+    while not foundTimetable:
+        fileNameTimetable = input("Please enter the full directory of timetable\n")
+        if checkFileExistence(fileNameTimetable):
+            foundTimetable = True
+    file = open(fileNameTimetable, mode='r')
+    fileLines = file.read()
+    lines = fileLines.splitlines()
+    global splitDataTimetable
+    splitDataTimetable = [line.split(';') for line in lines]
 
 
 
@@ -46,8 +56,7 @@ def schoolDetails():
     print("Details:\nSchool Name:", schoolName, "\nAmount of lessons in a day:", lessonDays, "\nAmount of lessons:", lessonAmount)
     isCorrect = input("Would you like to proceed? (y/n) ")
     if isCorrect.upper() == "Y":
-        fileNameTimetable = input("Please input the full directory of timetable")
-        checkTimetableValidity()
+        openTimetable()
     elif isCorrect.upper() == "N":
         isRetry = input("Would you like to retry? (y/n)")
         if isRetry.upper() == "Y":
