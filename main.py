@@ -31,6 +31,11 @@ def checkFileExistence(fileName):
         return False
 
 
+def checkTimetableValidity():
+    print("WIP")
+
+
+
 
 def openTimetable():
     foundTimetable = False
@@ -44,8 +49,8 @@ def openTimetable():
     lines = fileLines.splitlines()
     global splitDataTimetable
     splitDataTimetable = [line.split(';') for line in lines]
-
-
+    print(splitDataTimetable)
+    print(len(splitDataTimetable[0]))
 
 
 def schoolDetails():
