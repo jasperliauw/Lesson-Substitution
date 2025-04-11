@@ -32,11 +32,25 @@ def checkFileExistence(fileName):
 
 
 def checkTimetableValidity():
-    print("WIP")
+    daysValid = 0
+    daysValidd = 0
+    lessonsValid = 0
+    lessonsValidd = 0
+    passVerified = False
+    for timetableLength in range (0, len(splitDataTimetable)):
+        daysValidd +=1
+        if len(splitDataTimetable[timetableLength]) - 2 == lessonDays:
+            daysValid +=1
+    for timetableLength in range(0, len(splitDataTimetable)):
+        for i in range(3, len(splitDataTimetable[timetableLength])):
+            lessonsValidd += 1
+            if len(splitDataTimetable[timetableLength][i]) == lessonAmount:
+                lessonsValid +=1
 
 
-
-
+    if daysValid == daysValidd or lessonsValid == lessonsValidd:
+        passVerified = True
+    print(passVerified)
 def openTimetable():
     foundTimetable = False
     global fileNameTimetable
@@ -49,11 +63,13 @@ def openTimetable():
     lines = fileLines.splitlines()
     global splitDataTimetable
     splitDataTimetable = [line.split(';') for line in lines]
-    print(splitDataTimetable)
-    print(len(splitDataTimetable[0]))
+    checkTimetableValidity()
 
 
 def schoolDetails():
+    global schoolName
+    global lessonDays
+    global lessonAmount
     schoolName = splitData[schoolCodeID][1]
     lessonDays = int(splitData[schoolCodeID][2])
     lessonAmount = int(splitData[schoolCodeID][3])

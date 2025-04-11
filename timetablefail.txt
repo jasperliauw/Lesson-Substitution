@@ -1,0 +1,5 @@
+RT;1;A##B;BA##;C#BA;#BCA
+SL;-4;CAB#;#BA#;#AB;ACB#;#A##
+TO;-2;#CA#;A#CC;#A#C;C#A#;#CAB
+UC;3;###A;##BA;AB##;BA#C;CB#A
+VV;2;BBCC;CC#B;B#C#;###B;B#CC
