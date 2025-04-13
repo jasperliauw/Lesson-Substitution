@@ -36,7 +36,7 @@ def checkTimetableValidity():
     daysValidd = 0
     lessonsValid = 0
     lessonsValidd = 0
-    passVerified = False
+    passVerified = True
     for timetableLength in range (0, len(splitDataTimetable)):
         daysValidd +=1
         if len(splitDataTimetable[timetableLength]) - 2 == lessonDays:
@@ -48,9 +48,15 @@ def checkTimetableValidity():
                 lessonsValid +=1
 
 
-    if daysValid == daysValidd or lessonsValid == lessonsValidd:
-        passVerified = True
-    print(passVerified)
+    if daysValid != daysValidd:
+        passVerified = False
+        print("Amount of days in SC.txt doesn't match with data in timetable")
+        print("Program terminated")
+    if lessonsValid != lessonsValidd:
+        passVerified = False
+        print("Amount of lessons in SC.txt doesn't match with data in timetable")
+        print("Program terminated")
+
 def openTimetable():
     foundTimetable = False
     global fileNameTimetable
@@ -74,7 +80,7 @@ def schoolDetails():
     lessonDays = int(splitData[schoolCodeID][2])
     lessonAmount = int(splitData[schoolCodeID][3])
     global fileNameTimetable
-    print("Details:\nSchool Name:", schoolName, "\nAmount of lessons in a day:", lessonDays, "\nAmount of lessons:", lessonAmount)
+    print("Details:\nSchool Name:", schoolName, "\nAmount of days:", lessonDays, "\nAmount of lessons:", lessonAmount)
     isCorrect = input("Would you like to proceed? (y/n) ")
     if isCorrect.upper() == "Y":
         openTimetable()
