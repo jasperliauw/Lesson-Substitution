@@ -65,6 +65,18 @@ def CheckTimetableValidity():
         print("All timetable data is valid")
         DisplayInfoTimetable()
 
+
+
+def CheckSCValidity():
+    isValid = True
+    for i in range(len(splitData)):
+        if len(splitData[i]) != 4:
+            isValid = False
+        for j in range(len(splitData[i])):
+            if splitData[i][j] == '':
+                isValid = False
+    return isValid
+
 def OpenTimetable():
     foundTimetable = False
     global fileNameTimetable
@@ -136,6 +148,10 @@ file = open(fileNameSC, mode='r')
 fileLines = file.read()
 lines = fileLines.splitlines()
 splitData = [line.split(';') for line in lines]
-SchoolCodeCheck()
+if CheckSCValidity():
+    SchoolCodeCheck()
+else:
+    print("SC.txt invalid")
+    print("Program terminated")
 
 
