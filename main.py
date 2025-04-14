@@ -19,8 +19,13 @@ lessonAmount = 0
 #######################
 
 
-
-
+def DisplayInfoTimetable():
+    for timetableLength in range (0,len(splitDataTimetable)):
+        print(splitDataTimetable[timetableLength][0])
+        for i in range (2,len(splitDataTimetable[timetableLength])):
+            print(splitDataTimetable[timetableLength][i], end="")
+            if i == len(splitDataTimetable[timetableLength]) - 1:
+                print()
 
 
 def checkFileExistence(fileName):
@@ -31,7 +36,7 @@ def checkFileExistence(fileName):
         return False
 
 
-def checkTimetableValidity():
+def CheckTimetableValidity():
     daysValid = 0
     daysValidd = 0
     lessonsValid = 0
@@ -56,8 +61,11 @@ def checkTimetableValidity():
         passVerified = False
         print("Amount of lessons in SC.txt doesn't match with data in timetable")
         print("Program terminated")
+    if passVerified:
+        print("All timetable data is valid")
+        DisplayInfoTimetable()
 
-def openTimetable():
+def OpenTimetable():
     foundTimetable = False
     global fileNameTimetable
     while not foundTimetable:
@@ -69,10 +77,10 @@ def openTimetable():
     lines = fileLines.splitlines()
     global splitDataTimetable
     splitDataTimetable = [line.split(';') for line in lines]
-    checkTimetableValidity()
+    CheckTimetableValidity()
 
 
-def schoolDetails():
+def SchoolDetails():
     global schoolName
     global lessonDays
     global lessonAmount
@@ -83,23 +91,23 @@ def schoolDetails():
     print("Details:\nSchool Name:", schoolName, "\nAmount of days:", lessonDays, "\nAmount of lessons:", lessonAmount)
     isCorrect = input("Would you like to proceed? (y/n) ")
     if isCorrect.upper() == "Y":
-        openTimetable()
+        OpenTimetable()
     elif isCorrect.upper() == "N":
         isRetry = input("Would you like to retry? (y/n)")
         if isRetry.upper() == "Y":
-            schoolCodeCheck()
+            SchoolCodeCheck()
         elif isRetry.upper() == "N":
             print("Thank You for using this program, goodbye!")
         else:
             print("Please try again")
-            schoolDetails()
+            SchoolDetails()
     else:
         print("Please try again")
-        schoolDetails()
+        SchoolDetails()
 
 
 
-def schoolCodeCheck():
+def SchoolCodeCheck():
     userInputSchoolCode = input("Please enter your school code\n")
     foundSchoolCode = False
     global schoolCode
@@ -112,10 +120,10 @@ def schoolCodeCheck():
     if foundSchoolCode:
         print("School code found.")
         print(schoolCode)
-        schoolDetails()
+        SchoolDetails()
     else:
         print("School code not found, please try again")
-        schoolCodeCheck()
+        SchoolCodeCheck()
 
 
 
@@ -128,6 +136,6 @@ file = open(fileNameSC, mode='r')
 fileLines = file.read()
 lines = fileLines.splitlines()
 splitData = [line.split(';') for line in lines]
-schoolCodeCheck()
+SchoolCodeCheck()
 
 
