@@ -2,6 +2,8 @@
 #Imports
 
 import os
+import sys
+from tkinter.tix import CheckList
 
 #######################
 #Global Variables
@@ -19,6 +21,17 @@ lessonAmount = 0
 #######################
 
 
+def CheckQuit(inputString):
+    if inputString == "quit()":
+        print("Program terminated, good day.")
+        sys.exit()
+
+
+
+
+def ModifyTable():
+    print("WIP")
+
 def DisplayInfoTimetable():
     for timetableLength in range (0,len(splitDataTimetable)):
         print(splitDataTimetable[timetableLength][0])
@@ -26,6 +39,13 @@ def DisplayInfoTimetable():
             print(splitDataTimetable[timetableLength][i], end="")
             if i == len(splitDataTimetable[timetableLength]) - 1:
                 print()
+
+    isCorrect = input("If the above information correct?")
+    CheckQuit(isCorrect)
+    if isCorrect.upper() == "Y":
+        ModifyTable()
+    else:
+        print("Program terminated")
 
 
 def checkFileExistence(fileName):
@@ -102,10 +122,12 @@ def SchoolDetails():
     global fileNameTimetable
     print("Details:\nSchool Name:", schoolName, "\nAmount of days:", lessonDays, "\nAmount of lessons:", lessonAmount)
     isCorrect = input("Would you like to proceed? (y/n) ")
+    CheckQuit(isCorrect)
     if isCorrect.upper() == "Y":
         OpenTimetable()
     elif isCorrect.upper() == "N":
         isRetry = input("Would you like to retry? (y/n)")
+        CheckQuit(isRetry)
         if isRetry.upper() == "Y":
             SchoolCodeCheck()
         elif isRetry.upper() == "N":
@@ -121,6 +143,7 @@ def SchoolDetails():
 
 def SchoolCodeCheck():
     userInputSchoolCode = input("Please enter your school code\n")
+    CheckQuit(userInputSchoolCode)
     foundSchoolCode = False
     global schoolCode
     global schoolCodeID
@@ -139,8 +162,13 @@ def SchoolCodeCheck():
 
 
 
+
+
+print("Welcome to Lesson Substitution.")
+print("At any point if you would like to terminate the program, just type 'quit()'")
 while not fileSelected:
     fileNameSC = input("Please enter the full directory of SC.txt\n")
+    CheckQuit(fileNameSC)
     if checkFileExistence(fileNameSC):
         fileSelected = True
 
