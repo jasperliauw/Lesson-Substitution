@@ -3,7 +3,6 @@
 
 import os
 import sys
-from tkinter.tix import CheckList
 
 #######################
 #Global Variables
