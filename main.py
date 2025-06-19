@@ -18,8 +18,7 @@ schoolName = ""
 lessonDays = 0
 lessonAmount = 0
 teachers = []
-teacherSubName = ""
-teacherSubLocation = 0
+
 #######################
 
 
@@ -29,32 +28,12 @@ def CheckQuit(inputString):
         sys.exit()
 
 
-
-
 def ModifyTable():
-    global teacherSubName
-    global teacherSubLocation
-    dayOfCycle = input("Please enter the day needed for substitution: ")
-    CheckQuit(dayOfCycle)
-    if int(dayOfCycle) > lessonDays or int(dayOfCycle) < 1:
-        print("There is no such day as", str(dayOfCycle) + ", please retry")
-        ModifyTable()
-
-    teacherSub = input("Please enter the code of the teacher that needs to be substituted: ")
-    CheckQuit(teacherSub)
-    foundTeacher = False
-    for i in range(0, len(teachers)):
-        if teacherSub == teachers[i]:
-            foundTeacher = True
-            teacherSubName = teacherSub
-            teacherSubLocation = i
-    if not foundTeacher:
-        print("Teacher not found, please try again")
-        ModifyTable()
 
 
 
-def DisplayInfoTimetable():
+
+def DisplayInfoTimetable(): #Display all the info of the timetable and allow the user to check or not and then modify it
     for timetableLength in range (0,len(splitDataTimetable)):
         print(splitDataTimetable[timetableLength][0])
         teachers.append(splitDataTimetable[timetableLength][0])
@@ -71,7 +50,7 @@ def DisplayInfoTimetable():
         print("Program terminated")
 
 
-def checkFileExistence(fileName):
+def checkFileExistence(fileName): #Check file exists or not
     if os.path.isfile(fileName):
         return True
     else:
@@ -79,7 +58,7 @@ def checkFileExistence(fileName):
         return False
 
 
-def CheckTimetableValidity():
+def CheckTimetableValidity(): #Check if the timetable is valid (day -> lesson amount)
     daysValid = 0
     daysValidd = 0
     lessonsValid = 0
@@ -110,7 +89,7 @@ def CheckTimetableValidity():
 
 
 
-def CheckSCValidity():
+def CheckSCValidity(): #Check if the SC file is valid or not
     isValid = True
     for i in range(len(splitData)):
         if len(splitData[i]) != 4:
@@ -120,7 +99,7 @@ def CheckSCValidity():
                 isValid = False
     return isValid
 
-def OpenTimetable():
+def OpenTimetable(): #Open the file of the timetable and split the data so that it's in arrays that is readable
     foundTimetable = False
     global fileNameTimetable
     while not foundTimetable:
@@ -135,7 +114,7 @@ def OpenTimetable():
     CheckTimetableValidity()
 
 
-def SchoolDetails():
+def SchoolDetails(): #Show school details
     global schoolName
     global lessonDays
     global lessonAmount
@@ -164,11 +143,11 @@ def SchoolDetails():
 
 
 
-def SchoolCodeCheck():
+def SchoolCodeCheck(): #Check school code valid or not
     userInputSchoolCode = input("Please enter your school code\n")
     CheckQuit(userInputSchoolCode)
     foundSchoolCode = False
-    global schoolCode
+    global schoolCode #Make it so that the variable is accessible everywhere, maybe needed later
     global schoolCodeID
     for i in range(len(splitData)):
         if userInputSchoolCode == splitData[i][0]:
@@ -185,7 +164,7 @@ def SchoolCodeCheck():
 
 
 
-
+#Start of application
 if sys.platform.startswith("linux") or sys.platform.startswith("darwin"):
     os.system("clear")
 elif sys.platform.startswith("win"):
