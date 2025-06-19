@@ -3,7 +3,7 @@
 
 import os
 import sys
-from tkinter.tix import CheckList
+
 
 #######################
 #Global Variables
@@ -17,7 +17,9 @@ foundSchoolCode = False
 schoolName = ""
 lessonDays = 0
 lessonAmount = 0
-
+teachers = []
+teacherSubName = ""
+teacherSubLocation = 0
 #######################
 
 
@@ -28,19 +30,41 @@ def CheckQuit(inputString):
 
 
 
+f
 
 def ModifyTable():
-    print("WIP")
+    global teacherSubName
+    global teacherSubLocation
+    dayOfCycle = input("Please enter the day needed for substitution: ")
+    CheckQuit(dayOfCycle)
+    if int(dayOfCycle) > lessonDays or int(dayOfCycle) < 1:
+        print("There is no such day as", str(dayOfCycle) + ", please retry")
+        ModifyTable()
+
+    teacherSub = input("Please enter the code of the teacher that needs to be substituted: ")
+    CheckQuit(teacherSub)
+    foundTeacher = False
+    for i in range(0, len(teachers)):
+        if teacherSub == teachers[i]:
+            foundTeacher = True
+            teacherSubName = teacherSub
+            teacherSubLocation = i
+    if not foundTeacher:
+        print("Teacher not found, please try again")
+        ModifyTable()
+
+
 
 def DisplayInfoTimetable():
     for timetableLength in range (0,len(splitDataTimetable)):
         print(splitDataTimetable[timetableLength][0])
+        teachers.append(splitDataTimetable[timetableLength][0])
         for i in range (2,len(splitDataTimetable[timetableLength])):
             print(splitDataTimetable[timetableLength][i], end="")
             if i == len(splitDataTimetable[timetableLength]) - 1:
                 print()
 
-    isCorrect = input("If the above information correct?")
+    isCorrect = input("Is the above information correct? (y/n) ")
     CheckQuit(isCorrect)
     if isCorrect.upper() == "Y":
         ModifyTable()
@@ -163,7 +187,10 @@ def SchoolCodeCheck():
 
 
 
-
+if sys.platform.startswith("linux") or sys.platform.startswith("darwin"):
+    os.system("clear")
+elif sys.platform.startswith("win"):
+    os.system("cls")
 print("Welcome to Lesson Substitution.")
 print("At any point if you would like to terminate the program, just type 'quit()'")
 while not fileSelected:
