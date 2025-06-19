@@ -30,7 +30,7 @@ def CheckQuit(inputString):
 
 
 
-
+f
 
 def ModifyTable():
     global teacherSubName
