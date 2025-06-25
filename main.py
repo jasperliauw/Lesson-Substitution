@@ -65,7 +65,8 @@ def DisplayInfoTimetable(): #Display all the info of the timetable and allow the
         print(splitDataTimetable[timetableLength][0])
         teachers.append(splitDataTimetable[timetableLength][0])
         for i in range (2,len(splitDataTimetable[timetableLength])):
-            print(splitDataTimetable[timetableLength][i], end="<- Day")
+            print("Day", str(i-1) + ":")
+            print(splitDataTimetable[timetableLength][i])
             if i == len(splitDataTimetable[timetableLength]) - 1:
                 print()
 
