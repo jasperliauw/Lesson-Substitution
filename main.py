@@ -19,6 +19,7 @@ lessonDays = 0
 lessonAmount = 0
 teachers = []
 
+
 #######################
 
 
@@ -30,6 +31,7 @@ def CheckQuit(inputString):
 
 
 def ModifyTable():
+    teacherAvailable = []
     try:
         subNeedDay = int(input("Please input the day that needs to be substituted: "))
     except ValueError:
@@ -46,14 +48,24 @@ def ModifyTable():
     if not teacherValid:
         print("Please input a valid teacher.")
         ModifyTable()
+        return False
     lessonSubTeacherNeeded = splitDataTimetable[teacherLocation][subNeedDay+1]
     lessonNeeded = 0
+    lessonsNeedSub = []
     for i in range(0, len(lessonSubTeacherNeeded)):
         if not lessonSubTeacherNeeded[i] == "#":
             lessonNeeded += 1
+            lessonsNeedSub.append(i)
+    for i in range(0, len(splitDataTimetable)):
+        if not splitDataTimetable[i][0] == subNeedTeacher:
+            for i in range(0, len(splitDataTimetable[i][subNeedDay+1])):
+
+
+
     if lessonNeeded == 0:
         print("The teacher has no lesson that day, no need for substitution, please try again")
         ModifyTable()
+        return False
     print(lessonNeeded) #DEBUG CODE
 
 
