@@ -22,6 +22,7 @@ teachers = []
 #######################
 
 
+
 def CheckQuit(inputString):
     if inputString == "quit()":
         print("Program terminated, good day.")
@@ -29,6 +30,32 @@ def CheckQuit(inputString):
 
 
 def ModifyTable():
+    try:
+        subNeedDay = int(input("Please input the day that needs to be substituted: "))
+    except ValueError:
+        print("Please input a number.")
+        ModifyTable()
+        return False
+    subNeedTeacher = input("Please input the name of the teacher that needs to be substituted: ")
+    teacherValid = False
+    teacherLocation = 0
+    for i in range(0, len(teachers)):
+        if teachers[i] == subNeedTeacher:
+            teacherValid = True
+            teacherLocation = i
+    if not teacherValid:
+        print("Please input a valid teacher.")
+        ModifyTable()
+    lessonSubTeacherNeeded = splitDataTimetable[teacherLocation][subNeedDay+1]
+    lessonNeeded = 0
+    for i in range(0, len(lessonSubTeacherNeeded)):
+        if not lessonSubTeacherNeeded[i] == "#":
+            lessonNeeded += 1
+    if lessonNeeded == 0:
+        print("The teacher has no lesson that day, no need for substitution, please try again")
+        ModifyTable()
+    print(lessonNeeded) #DEBUG CODE
+
 
 
 
@@ -38,7 +65,7 @@ def DisplayInfoTimetable(): #Display all the info of the timetable and allow the
         print(splitDataTimetable[timetableLength][0])
         teachers.append(splitDataTimetable[timetableLength][0])
         for i in range (2,len(splitDataTimetable[timetableLength])):
-            print(splitDataTimetable[timetableLength][i], end="")
+            print(splitDataTimetable[timetableLength][i], end="<- Day")
             if i == len(splitDataTimetable[timetableLength]) - 1:
                 print()
 
