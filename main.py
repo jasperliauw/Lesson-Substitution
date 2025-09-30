@@ -56,18 +56,17 @@ def ModifyTable():
         if not lessonSubTeacherNeeded[i] == "#":
             lessonNeeded += 1
             lessonsNeedSub.append(i)
-
-
-
     if lessonNeeded == 0:
         print("The teacher has no lesson that day, no need for substitution, please try again")
         ModifyTable()
         return False
-    print(lessonsNeedSub) #DEBUG CODE
-    for lessonFounded in range(0, len(lessonsNeedSub)):
-        print(splitDataTimetable[lessonFounded][subNeedDay + 1])
-        print(splitDataTimetable[lessonFounded][subNeedDay + 1])
+    print(splitDataTimetable)
+    print(splitDataTimetable[teacherLocation][subNeedDay+1])
+    daysDebt = []
+    for i in range(0, len(teachers)):
+        daysDebt.append(splitDataTimetable[i][1], splitDataTimetable[i][0])
 
+    print(daysDebt)
 
 
 
@@ -75,15 +74,11 @@ def ModifyTable():
 
 
 def DisplayInfoTimetable(): #Display all the info of the timetable and allow the user to check or not and then modify it
+    print("Teachers code found: ", end="")
     for timetableLength in range (0,len(splitDataTimetable)):
-        print(splitDataTimetable[timetableLength][0])
+        print(splitDataTimetable[timetableLength][0],end=" ")
         teachers.append(splitDataTimetable[timetableLength][0])
-        for i in range (2,len(splitDataTimetable[timetableLength])):
-            print("Day", str(i-1) + ":")
-            print(splitDataTimetable[timetableLength][i])
-            if i == len(splitDataTimetable[timetableLength]) - 1:
-                print()
-
+    print()
     isCorrect = input("Is the above information correct? (y/n) ")
     CheckQuit(isCorrect)
     if isCorrect.upper() == "Y":
