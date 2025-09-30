@@ -60,15 +60,36 @@ def ModifyTable():
         print("The teacher has no lesson that day, no need for substitution, please try again")
         ModifyTable()
         return False
-    print(splitDataTimetable)
-    print(splitDataTimetable[teacherLocation][subNeedDay+1])
+#    print(splitDataTimetable)
+#    print(splitDataTimetable[teacherLocation][subNeedDay+1])
     daysDebt = []
+    subLessons = []
     for i in range(0, len(teachers)):
-        daysDebt.append(splitDataTimetable[i][1], splitDataTimetable[i][0])
-
+        if not splitDataTimetable[i][0] == subNeedTeacher:
+            tempArray = []
+            tempArray.append(splitDataTimetable[i][1])
+            tempArray.append(splitDataTimetable[i][0])
+            tempArray.append(splitDataTimetable[i][2])
+            daysDebt.append(tempArray)
+    daysDebt.sort(key=lambda x: int(x[0]))
     print(daysDebt)
+    print(lessonsNeedSub)
+    for j in range(0, len(lessonsNeedSub)): #Step 1 & 2
+        for i in range(0, len(daysDebt)):
+            if daysDebt[i][2][lessonsNeedSub[j]] == "#":
+                temp = []
+                temp.append(lessonsNeedSub[j])
+                temp.append(daysDebt[i][1])
+                subLessons.append(temp)
+                print(lessonsNeedSub[j], daysDebt[i][1])
+                print(subLessons)
+                break
 
-
+    isDone = False
+    if len(subLessons) == len(lessonsNeedSub):
+        isDone = True
+    if not isDone: #Step 3
+        print("fuck")
 
 
 

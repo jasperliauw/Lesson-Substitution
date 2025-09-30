@@ -1,0 +1,7 @@
+Name of school: ABC
+Substitution for RT on Day 1
+
+Lesson    Class     Substitute
+--------  --------  --------  
+1         A         TO        
+4         B         SL        
