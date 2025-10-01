@@ -63,7 +63,9 @@ def ModifyTable():
 #    print(splitDataTimetable)
 #    print(splitDataTimetable[teacherLocation][subNeedDay+1])
     daysDebt = []
+    temp = []
     subLessons = []
+    daysSame = []
     for i in range(0, len(teachers)):
         if not splitDataTimetable[i][0] == subNeedTeacher:
             tempArray = []
@@ -72,6 +74,14 @@ def ModifyTable():
             tempArray.append(splitDataTimetable[i][2])
             daysDebt.append(tempArray)
     daysDebt.sort(key=lambda x: int(x[0]))
+    #We check if two teachers have the same days amount
+    for i in range(len(daysDebt)-1):
+        if daysDebt[i][0] == daysDebt[i+1][0]:
+            print("Some of the teachers have the same amount of days debt")
+            daysSame.append(daysDebt[i])
+            daysSame.append(daysDebt[i+1])
+    daysSame.sort(key=lambda x: str(x[1]))
+    print(daysSame)
     print(daysDebt)
     print(lessonsNeedSub)
     for j in range(0, len(lessonsNeedSub)): #Step 1 & 2
@@ -85,11 +95,7 @@ def ModifyTable():
                 print(subLessons)
                 break
 
-    isDone = False
-    if len(subLessons) == len(lessonsNeedSub):
-        isDone = True
-    if not isDone: #Step 3
-        print("fuck")
+
 
 
 
