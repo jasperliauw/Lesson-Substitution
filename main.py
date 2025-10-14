@@ -93,6 +93,11 @@ def ModifyTable():
                 subLessons.append(temp)
                 print(lessonsNeedSub[j], daysDebt[i][1])
                 print(subLessons)
+                day = int(daysDebt[i][0])
+                day += 1
+                daysDebt[i][0] = str(day)
+                print(daysDebt)
+                daysDebt.sort(key=lambda x: int(x[0]))
                 break
 
 
