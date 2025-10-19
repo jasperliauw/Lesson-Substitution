@@ -22,7 +22,39 @@ teachers = []
 
 #######################
 
+def WriteFiles():
+    print("Yes")
 
+
+def AcceptOrNot(subLessons, teacherName):
+    backupSub = subLessons.copy()
+    for i in range(len(subLessons)):
+        print("Do you accept this substitution?")
+        print("Lesson: " + str(subLessons[i][0] + 1))
+        print("Teacher: "+ teacherName + " --> " + str(subLessons[i][1]))
+        acceptOrNot = input("Y)es, N)o : ")
+        if acceptOrNot.upper() == "Y":
+            continue
+        else:
+            teacherValid = False
+            while teacherValid == False:
+                new = input("Which teacher would you like to substitute with: ")
+                for j in range(0, len(teachers)):
+                    if teachers[j] == new:
+                        teacherValid = True
+                        subLessons[i][1] = new
+                        break
+                if not teacherValid:
+                    print("No teacher with that initial is found, please try again ")
+    print("Is this correct?")
+    for i in range(len(subLessons)):
+        print("Lesson: " + str(subLessons[i][0] + 1), ", Teacher: " + teacherName+ " --> "+str(subLessons[i][1]))
+    confirm = input("Y)es, N)o : ")
+    if confirm.upper() == "Y":
+        continue
+    else:
+        print("Please retry")
+        AcceptOrNot(backupSub, teacherName)
 
 def CheckQuit(inputString):
     if inputString == "quit()":
@@ -81,8 +113,8 @@ def ModifyTable():
             daysSame.append(daysDebt[i])
             daysSame.append(daysDebt[i+1])
     daysSame.sort(key=lambda x: str(x[1]))
-    print(daysSame)
-    print(daysDebt)
+    #print(daysSame)
+    #print(daysDebt)
     print(lessonsNeedSub)
     for j in range(0, len(lessonsNeedSub)): #Step 1 & 2
         for i in range(0, len(daysDebt)):
@@ -91,16 +123,19 @@ def ModifyTable():
                 temp.append(lessonsNeedSub[j])
                 temp.append(daysDebt[i][1])
                 subLessons.append(temp)
-                print(lessonsNeedSub[j], daysDebt[i][1])
-                print(subLessons)
+                #print(lessonsNeedSub[j], daysDebt[i][1])
+                #print(subLessons)
                 day = int(daysDebt[i][0])
                 day += 1
                 daysDebt[i][0] = str(day)
-                print(daysDebt)
+                #print(daysDebt)
                 daysDebt.sort(key=lambda x: int(x[0]))
                 break
-
-
+    if sys.platform.startswith("linux") or sys.platform.startswith("darwin"):
+        os.system("clear")
+    elif sys.platform.startswith("win"):
+        os.system("cls")
+    AcceptOrNot(subLessons, subNeedTeacher)
 
 
 
