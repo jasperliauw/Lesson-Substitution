@@ -22,11 +22,43 @@ teachers = []
 
 #######################
 
-def WriteFiles():
-    print("Yes")
+def write_output_for_acceptance(school_name, original_teacher, day, sub_lessons):
+    """
+    Write substitution summary to file named 'Output'.
+    - school_name: string
+    - original_teacher: string
+    - day: int (1-based)
+    - sub_lessons: list of [lesson_index (0-based), substitute_name] pairs
+    If a lesson in the original need list has no substitute, a line "No teacher available"
+    will be printed to stdout and that lesson will be omitted from the table in the file.
+    """
+    # Header lines
+    lines = []
+    lines.append(f"Name of school: {school_name}")
+    lines.append(f"Substitution for {original_teacher} on Day {int(day)}")
+    lines.append("")
+    # Table header
+    col1 = "Lesson".ljust(8)
+    col3 = "Substitute".ljust(9)
+    sep = "  "
+    lines.append(f"{col1}{sep}{col3}")
+    lines.append(f"{'-'*8}{sep}{'-'*8}")
+
+    # Build table rows
+    for entry in sub_lessons:
+        # Expect entry = [lesson_index, substitute_name]
+        lesson_idx = int(entry[0])
+        lesson_display = str(lesson_idx + 1).ljust(8)  # convert 0-based to 1-based for display
+        substitute = str(entry[1]).ljust(9)
+        lines.append(f"{lesson_display}{sep}{substitute}")
+
+    # Write to file (overwrite existing)
+    with open("Output", "w", encoding="utf-8") as f:
+        for l in lines:
+            f.write(l + "\n")
 
 
-def AcceptOrNot(subLessons, teacherName):
+def AcceptOrNot(subLessons, teacherName, subNeedDay):
     backupSub = subLessons.copy()
     for i in range(len(subLessons)):
         print("Do you accept this substitution?")
@@ -46,15 +78,18 @@ def AcceptOrNot(subLessons, teacherName):
                         break
                 if not teacherValid:
                     print("No teacher with that initial is found, please try again ")
-    print("Is this correct?")
-    for i in range(len(subLessons)):
-        print("Lesson: " + str(subLessons[i][0] + 1), ", Teacher: " + teacherName+ " --> "+str(subLessons[i][1]))
-    confirm = input("Y)es, N)o : ")
-    if confirm.upper() == "Y":
-        WriteFiles()
+    if not len(subLessons) == 0:
+        print("Is this correct?")
+        for i in range(len(subLessons)):
+            print("Lesson: " + str(subLessons[i][0] + 1), ", Teacher: " + teacherName+ " --> "+str(subLessons[i][1]))
+        confirm = input("Y)es, N)o : ")
+        if confirm.upper() == "Y":
+            write_output_for_acceptance(schoolName, teacherName, subNeedDay, subLessons)
+        else:
+            print("Please retry")
+            AcceptOrNot(backupSub, teacherName)
     else:
-        print("Please retry")
-        AcceptOrNot(backupSub, teacherName)
+        print("No substitution is needed, good day.")
 
 def CheckQuit(inputString):
     if inputString == "quit()":
@@ -115,7 +150,7 @@ def ModifyTable():
     daysSame.sort(key=lambda x: str(x[1]))
     #print(daysSame)
     #print(daysDebt)
-    print(lessonsNeedSub)
+    #print(lessonsNeedSub)
     for j in range(0, len(lessonsNeedSub)): #Step 1 & 2
         for i in range(0, len(daysDebt)):
             if daysDebt[i][2][lessonsNeedSub[j]] == "#":
@@ -135,10 +170,13 @@ def ModifyTable():
         os.system("clear")
     elif sys.platform.startswith("win"):
         os.system("cls")
-    if len(lessonsNeedSub) != len(daysDebt):
-        for i in range(len(lessonsNeedSub)):
-            print()
-    AcceptOrNot(subLessons, subNeedTeacher)
+    #print(lessonsNeedSub)
+    found_indexes = [entry[0] for entry in subLessons]
+    for lesson in lessonsNeedSub:
+        if lesson not in found_indexes:
+            print(f"No teacher available for lesson {lesson + 1}")
+
+    AcceptOrNot(subLessons, subNeedTeacher,subNeedDay)
 
 
 
