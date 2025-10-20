@@ -51,7 +51,7 @@ def AcceptOrNot(subLessons, teacherName):
         print("Lesson: " + str(subLessons[i][0] + 1), ", Teacher: " + teacherName+ " --> "+str(subLessons[i][1]))
     confirm = input("Y)es, N)o : ")
     if confirm.upper() == "Y":
-        continue
+        WriteFiles()
     else:
         print("Please retry")
         AcceptOrNot(backupSub, teacherName)
@@ -109,7 +109,7 @@ def ModifyTable():
     #We check if two teachers have the same days amount
     for i in range(len(daysDebt)-1):
         if daysDebt[i][0] == daysDebt[i+1][0]:
-            print("Some of the teachers have the same amount of days debt")
+            #print("Some of the teachers have the same amount of days debt")
             daysSame.append(daysDebt[i])
             daysSame.append(daysDebt[i+1])
     daysSame.sort(key=lambda x: str(x[1]))
@@ -135,6 +135,9 @@ def ModifyTable():
         os.system("clear")
     elif sys.platform.startswith("win"):
         os.system("cls")
+    if len(lessonsNeedSub) != len(daysDebt):
+        for i in range(len(lessonsNeedSub)):
+            print()
     AcceptOrNot(subLessons, subNeedTeacher)
 
 
