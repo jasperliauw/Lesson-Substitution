@@ -23,15 +23,6 @@ teachers = []
 #######################
 
 def write_output_for_acceptance(school_name, original_teacher, day, sub_lessons):
-    """
-    Write substitution summary to file named 'Output'.
-    - school_name: string
-    - original_teacher: string
-    - day: int (1-based)
-    - sub_lessons: list of [lesson_index (0-based), substitute_name] pairs
-    If a lesson in the original need list has no substitute, a line "No teacher available"
-    will be printed to stdout and that lesson will be omitted from the table in the file.
-    """
     # Header lines
     lines = []
     lines.append(f"Name of school: {school_name}")
@@ -181,6 +172,36 @@ def ModifyTable():
 
 
 
+def chooseOption():
+    #modyfiytable()
+    print("Welcome to Lesson Substitution\nWhat do you want to do?")
+    choose = input("D)isplay timetable, S)ubstitute, Q)uit")
+    if choose.upper() == "D":
+        for timetableLength in range (0,len(splitDataTimetable)):
+            print(splitDataTimetable[timetableLength][0])
+            for i in range (2,len(splitDataTimetable[timetableLength])):
+                print("Day", str(i-1) + ":")
+                print(splitDataTimetable[timetableLength][i])
+                if i == len(splitDataTimetable[timetableLength]) - 1:
+                    print()
+        choice = input("R)eturn, E)xit")
+        if choice.upper() == "R":
+            chooseOption()
+        elif choice.upper == "E":
+            print("Thank you and goodbye")
+        else:
+            print("Invalid Option, returning")
+            chooseOption()
+    elif choose.upper() == "S":
+        ModifyTable()
+    elif choose.upper() == "Q":
+        print("Thank you and goodbye")
+    else:
+        print("Invalid option, please try again")
+        chooseOption()
+    
+
+
 def DisplayInfoTimetable(): #Display all the info of the timetable and allow the user to check or not and then modify it
     print("Teachers code found: ", end="")
     for timetableLength in range (0,len(splitDataTimetable)):
@@ -190,7 +211,7 @@ def DisplayInfoTimetable(): #Display all the info of the timetable and allow the
     isCorrect = input("Is the above information correct? (y/n) ")
     CheckQuit(isCorrect)
     if isCorrect.upper() == "Y":
-        ModifyTable()
+        chooseOption()
     else:
         print("Program terminated")
 
@@ -314,8 +335,6 @@ if sys.platform.startswith("linux") or sys.platform.startswith("darwin"):
     os.system("clear")
 elif sys.platform.startswith("win"):
     os.system("cls")
-print("Welcome to Lesson Substitution.")
-print("At any point if you would like to terminate the program, just type 'quit()'")
 while not fileSelected:
     fileNameSC = input("Please enter the full directory of SC.txt\n")
     CheckQuit(fileNameSC)
