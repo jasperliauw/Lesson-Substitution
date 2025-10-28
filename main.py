@@ -22,7 +22,7 @@ teachers = []
 
 #######################
 
-def write_output_for_acceptance(school_name, original_teacher, day, sub_lessons):
+def write_output_for_acceptance(school_name, original_teacher, day, sub_lessons, nameofFile):
     # Header lines
     lines = []
     lines.append(f"Name of school: {school_name}")
@@ -42,11 +42,22 @@ def write_output_for_acceptance(school_name, original_teacher, day, sub_lessons)
         lesson_display = str(lesson_idx + 1).ljust(8)  # convert 0-based to 1-based for display
         substitute = str(entry[1]).ljust(9)
         lines.append(f"{lesson_display}{sep}{substitute}")
-
+    if nameofFile == "":
+        nameofFile = "Output"
     # Write to file (overwrite existing)
-    with open("Output", "w", encoding="utf-8") as f:
+    with open(nameofFile, "w", encoding="utf-8") as f:
         for l in lines:
             f.write(l + "\n")
+    print("Saved!")
+    print("Would you like to return to the main menu?")
+    choose = input("Y)es, N)o\n")
+    if choose.upper() == "Y":
+        print("Returning")
+        chooseOption()
+    elif choose.upper() == "N":
+        print("Goodbye")
+    else:
+        print("Invalid Option, returning to main menu")
 
 
 def AcceptOrNot(subLessons, teacherName, subNeedDay):
@@ -55,7 +66,7 @@ def AcceptOrNot(subLessons, teacherName, subNeedDay):
         print("Do you accept this substitution?")
         print("Lesson: " + str(subLessons[i][0] + 1))
         print("Teacher: "+ teacherName + " --> " + str(subLessons[i][1]))
-        acceptOrNot = input("Y)es, N)o : ")
+        acceptOrNot = input("Y)es, N)o\n")
         if acceptOrNot.upper() == "Y":
             continue
         else:
@@ -73,9 +84,10 @@ def AcceptOrNot(subLessons, teacherName, subNeedDay):
         print("Is this correct?")
         for i in range(len(subLessons)):
             print("Lesson: " + str(subLessons[i][0] + 1), ", Teacher: " + teacherName+ " --> "+str(subLessons[i][1]))
-        confirm = input("Y)es, N)o : ")
+        confirm = input("Y)es, N)o\n")
         if confirm.upper() == "Y":
-            write_output_for_acceptance(schoolName, teacherName, subNeedDay, subLessons)
+            name = input("What would you like the name of the file to be? (Default: Output):\n")
+            write_output_for_acceptance(schoolName, teacherName, subNeedDay, subLessons, name)
         else:
             print("Please retry")
             AcceptOrNot(backupSub, teacherName)
@@ -173,9 +185,13 @@ def ModifyTable():
 
 
 def chooseOption():
+    if sys.platform.startswith("darwin") or sys.platform.startswith("linux"):
+        os.system("clear")
+    elif sys.platform.startswith("win"):
+        os.system("cls")
     #modyfiytable()
     print("Welcome to Lesson Substitution\nWhat do you want to do?")
-    choose = input("D)isplay timetable, S)ubstitute, Q)uit")
+    choose = input("D)isplay timetable, S)ubstitute, C)hange Files, Q)uit\n")
     if choose.upper() == "D":
         for timetableLength in range (0,len(splitDataTimetable)):
             print(splitDataTimetable[timetableLength][0])
@@ -184,7 +200,7 @@ def chooseOption():
                 print(splitDataTimetable[timetableLength][i])
                 if i == len(splitDataTimetable[timetableLength]) - 1:
                     print()
-        choice = input("R)eturn, E)xit")
+        choice = input("R)eturn, E)xit:\n")
         if choice.upper() == "R":
             chooseOption()
         elif choice.upper == "E":
@@ -196,6 +212,8 @@ def chooseOption():
         ModifyTable()
     elif choose.upper() == "Q":
         print("Thank you and goodbye")
+    elif choose.upper() == "C":
+        start()
     else:
         print("Invalid option, please try again")
         chooseOption()
@@ -331,24 +349,31 @@ def SchoolCodeCheck(): #Check school code valid or not
 
 
 #Start of application
-if sys.platform.startswith("linux") or sys.platform.startswith("darwin"):
-    os.system("clear")
-elif sys.platform.startswith("win"):
-    os.system("cls")
-while not fileSelected:
-    fileNameSC = input("Please enter the full directory of SC.txt\n")
-    CheckQuit(fileNameSC)
-    if checkFileExistence(fileNameSC):
-        fileSelected = True
+def start():
+    global fileSelected
+    global splitData
+    fileSelected = False
+    if sys.platform.startswith("linux") or sys.platform.startswith("darwin"):
+        os.system("clear")
+    elif sys.platform.startswith("win"):
+        os.system("cls")
+    while not fileSelected:
+        fileNameSC = input("Please enter the full directory of SC.txt\n")
+        CheckQuit(fileNameSC)
+        if checkFileExistence(fileNameSC):
+            fileSelected = True
 
-file = open(fileNameSC, mode='r')
-fileLines = file.read()
-lines = fileLines.splitlines()
-splitData = [line.split(';') for line in lines]
-if CheckSCValidity():
-    SchoolCodeCheck()
-else:
-    print("SC.txt invalid")
-    print("Program terminated")
+    file = open(fileNameSC, mode='r')
+    fileLines = file.read()
+    lines = fileLines.splitlines()
+    splitData = [line.split(';') for line in lines]
+    if CheckSCValidity():
+        SchoolCodeCheck()
+    else:
+        print("SC.txt invalid")
+        print("Program terminated")
 
 
+
+
+start()
