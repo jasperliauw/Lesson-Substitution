@@ -90,7 +90,7 @@ def AcceptOrNot(subLessons, teacherName, subNeedDay):
             write_output_for_acceptance(schoolName, teacherName, subNeedDay, subLessons, name)
         else:
             print("Please retry")
-            AcceptOrNot(backupSub, teacherName)
+            AcceptOrNot(backupSub, teacherName, subNeedDay)
     else:
         print("No substitution is needed, good day.")
 
